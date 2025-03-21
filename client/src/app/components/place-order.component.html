@@ -1,0 +1,71 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="fs-1 fw-bold text-primary">Confirm Order</div>
+  </div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="confirmOrder()">
+  <div class="row mb-2">
+    <div class="col">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" id="username" formControlName="username" class="form-control" placeholder="Registered username">
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" id="password" formControlName="password" class="form-control" placeholder="Valid password">
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col">
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-danger" [disabled]="isSubmitting" (click)="startOver()">
+          Start Over
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid || isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="row mb-2">
+  <div class="col">
+    <h2>Your Order</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th> Name </th>
+          <th> Price </th>
+          <th> Quantity </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- https://stackoverflow.com/questions/61711943/how-to-correctly-use-tofixed-in-angular -->
+        <tr *ngFor="let item of cartItems; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.name }}</td>
+          <td>${{ item.price.toFixed(2) }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>${{ getItemSubtotal(item).toFixed(2) }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" class="text-end fw-bold">Total:</td>
+          <td>${{ totalPrice.toFixed(2) }}</td>
+        </tr>
+      </tfoot>
+
+    </table>
+  </div>
+</div>

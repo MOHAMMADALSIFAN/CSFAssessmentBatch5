@@ -1,0 +1,7 @@
+# TODO: Task 1.1
+mongoimport --uri="mongodb://localhost:27017" --db="restaurant" --collection="menus" --jsonArray --file="menus.json"
+
+
+
+
+

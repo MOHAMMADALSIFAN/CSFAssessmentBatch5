@@ -1,0 +1,41 @@
+<div class="row mt-3">
+  <div class="col d-flex justify-content-between align-items-center">
+    <div class="fs-1 fw-bold text-primary">Menu (${{ totalPrice.toFixed(2) }})</div>
+    <div>
+      <button type="button" class="btn btn-primary" [disabled]="totalItems === 0" (click)="placeOrder()">
+        Place Order ({{ totalItems }})
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- each row display a single mene item -->
+<div class="row mb-2" *ngFor="let item of menuItems">
+  <div class="col">
+    <div class="menu-item">
+      <div>
+        <button type="button" class="btn btn-warning" [disabled]="!hasItemInCart(item._id)" (click)="removeFromCart(item)">
+          <i class="bi bi-x-square"></i>
+        </button>
+      </div>
+      <div class="menu-details">
+        <div>Name: <span class="fw-bold">{{ item.name }}</span></div>
+        <div>Description:
+          <span class="fst-italic">
+            {{ item.description }}
+          </span>
+        </div>
+        <div></div>
+        <div>Price: <span class="fw-bold">${{ item.price.toFixed(2) }}</span></div>
+        <div class="text-danger fw-bold" *ngIf="hasItemInCart(item._id)">Quantity: {{ getItemQuantity(item._id) }}</div>
+      </div>
+      <div class="menu-button-end">
+        <button type="button" class="btn btn-success" (click)="addToCart(item)">
+          <i class="bi bi-plus-circle"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
